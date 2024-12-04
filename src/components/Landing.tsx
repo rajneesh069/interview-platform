@@ -1,34 +1,35 @@
 import { Building2, Clock } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import VideoComponent from "./VideoComponent";
 
 export default function Landing() {
   return (
-    <div className="min-h-screen bg-[#1A1D24] text-white p-6">
+    <div className="min-h-screen bg-[#1A1D24] text-white p-6 md:p-16">
       <div className="max-w-7xl mx-auto space-y-6">
-        <div className="flex justify-between items-center">
+        <div className="flex justify-between items-center gap-2">
           <h1 className="text-2xl font-semibold">Trainee Interview</h1>
           <div className="flex gap-3">
             <Badge
               variant="outline"
               className="bg-[#2A2D35] text-white border-none py-2 px-3"
             >
-              <Building2 className="w-4 h-4 mr-2" />
+              <Building2 className="w-4 h-4 mr-1" />
               Zeko
             </Badge>
             <Badge
               variant="outline"
               className="bg-[#2A2D35] text-white border-none py-2 px-3"
             >
-              <Clock className="w-4 h-4 mr-2" />
+              <Clock className="w-4 h-4 mr-1" />
               26 Minutes
             </Badge>
           </div>
         </div>
 
-        <div className="grid lg:grid-cols-2 gap-8">
-          <div className="relative aspect-video bg-black/20 rounded-lg overflow-hidden">
-            {/* Video Component to be added */}
+        <div className="grid lg:grid-cols-2 gap-10">
+          <div>
+            <VideoComponent />
           </div>
 
           <div className="space-y-6">

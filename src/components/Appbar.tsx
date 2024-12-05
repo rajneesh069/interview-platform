@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { AuthButton } from "./AuthButton";
+import AuthComponent from "./AuthComponent";
 
 export default function Appbar() {
   return (
@@ -11,7 +11,7 @@ export default function Appbar() {
         alt="logo"
         className="w-auto h-auto"
       />
-      <AuthButton />
+      <AuthComponent />
     </div>
   );
 }

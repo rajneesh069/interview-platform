@@ -1,4 +1,4 @@
-import { Building2, Clock } from "lucide-react";
+import { Clock, Home } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import VideoComponent from "./VideoComponent";
@@ -12,16 +12,16 @@ export default function Landing() {
           <div className="flex gap-3">
             <Badge
               variant="outline"
-              className="bg-[#2A2D35] text-white border-none py-2 px-3"
+              className="bg-[#2A2D35] text-white border-white bg-none py-2 px-3"
             >
-              <Building2 className="w-4 h-4 mr-1" />
+              <Home className="w-4 h-4 mr-1" color="orange" />
               Zeko
             </Badge>
             <Badge
               variant="outline"
-              className="bg-[#2A2D35] text-white border-none py-2 px-3"
+              className="bg-[#2A2D35] text-white border-white py-2 px-3"
             >
-              <Clock className="w-4 h-4 mr-1" />
+              <Clock className="w-4 h-4 mr-1" color="red"/>
               26 Minutes
             </Badge>
           </div>

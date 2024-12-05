@@ -1,5 +1,4 @@
 "use client";
-
 import { signIn } from "next-auth/react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -21,14 +20,12 @@ export default function AuthModal({ open, onOpenChange }: AuthDialogProps) {
     signIn("google", { callbackUrl: "/" });
     onOpenChange(false);
   };
-
   const handleEmailSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const email = new FormData(e.currentTarget).get("email") as string;
     signIn("email", { email, callbackUrl: "/" });
     onOpenChange(false);
   };
-
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-md">

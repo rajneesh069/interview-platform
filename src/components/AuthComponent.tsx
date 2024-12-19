@@ -18,9 +18,12 @@ import { auth } from "@/auth";
 import { User } from "lucide-react";
 import { SignOut } from "./sign-out";
 
-export default async function AuthComponent() {
+export default async function AuthComponent({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   const session = await auth();
-  console.log(session?.user);
   if (session?.user?.email) {
     return (
       <div>
@@ -42,9 +45,7 @@ export default async function AuthComponent() {
     return (
       <Dialog>
         <DialogTrigger asChild>
-          <Button className="bg-[#7C3AED] hover:bg-[#6D28D9] text-white font-medium rounded-full px-6">
-            Login / SignUp
-          </Button>
+          {children}
         </DialogTrigger>
         <DialogContent className="sm:max-w-md">
           <DialogHeader>

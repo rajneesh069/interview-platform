@@ -1,5 +1,6 @@
 import Image from "next/image";
 import AuthComponent from "./AuthComponent";
+import { Button } from "./ui/button";
 
 export default function Appbar() {
   return (
@@ -11,7 +12,11 @@ export default function Appbar() {
         alt="logo"
         className="w-auto h-auto"
       />
-      <AuthComponent />
+      <AuthComponent>
+        <Button className="bg-[#7C3AED] hover:bg-[#6D28D9] text-white font-medium rounded-full px-6">
+          Login / SignUp
+        </Button>
+      </AuthComponent>
     </div>
   );
 }

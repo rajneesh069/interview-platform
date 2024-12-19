@@ -17,7 +17,7 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "AI Testing Platform",
+  title: "Interview Platform",
   description: "Created with 💖 by Rajneesh Mishra",
 };
 

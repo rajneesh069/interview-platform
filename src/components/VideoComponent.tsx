@@ -1,69 +1,67 @@
 "use client";
 
+import { mediaStreamStore } from "@/store/streams";
 import { useEffect, useRef } from "react";
 
 export default function VideoComponent() {
-  const videoRef = useRef<HTMLVideoElement>(null);
-
+  const videoRef = useRef<HTMLVideoElement | null>(null);
+  const {
+    setVideoStreamStatus,
+    setAudioStreamStatus,
+    audioStreamStatus,
+    videoStreamStatus,
+  } = mediaStreamStore();
   useEffect(() => {
-    const startMedia = async () => {
+    let video: MediaStream | null = null;
+    let audio: MediaStream | null = null;
+    async function getCameraAndMicrophoneStreams() {
       try {
-        const stream = await navigator.mediaDevices.getUserMedia({
+        const videoStream = await navigator.mediaDevices.getUserMedia({
           video: true,
+        });
+
+        video = videoStream;
+        if (videoRef.current) {
+          videoRef.current.srcObject = videoStream;
+        }
+        setVideoStreamStatus(true);
+        const audioStream = await navigator.mediaDevices.getUserMedia({
           audio: true,
         });
 
-        if (videoRef.current) {
-          videoRef.current.srcObject = stream;
-          videoRef.current.muted = true;
-        }
+        audio = audioStream;
+        setAudioStreamStatus(true);
       } catch (error) {
-        alert("Failed to access media devices. Please allow permissions.");
         console.error(error);
+        setVideoStreamStatus(false);
+        setAudioStreamStatus(false);
       }
-    };
+    }
 
-    startMedia();
-
-    const handleVisibilityChange = () => {
-      if (document.hidden) {
-        const confirmLeave = window.confirm(
-          "If you switch tabs, the current tab will close. Do you want to continue?"
-        );
-        if (confirmLeave) {
-          window.close();
-        }
-      }
-    };
-
-    const handleFullscreenChange = () => {
-      if (!document.fullscreenElement) {
-        const confirmExit = window.confirm(
-          "If you exit fullscreen, the current tab will close. Do you want to continue?"
-        );
-        if (confirmExit) {
-          window.close();
-        }
-      }
-    };
-
-    document.addEventListener("visibilitychange", handleVisibilityChange);
-    document.addEventListener("fullscreenchange", handleFullscreenChange);
+    getCameraAndMicrophoneStreams();
 
     return () => {
-      document.removeEventListener("visibilitychange", handleVisibilityChange);
-      document.removeEventListener("fullscreenchange", handleFullscreenChange);
+      if (video) {
+        video.getTracks().forEach((track) => track.stop());
+      }
+      if (audio) {
+        audio.getTracks().forEach((track) => track.stop());
+      }
     };
-  }, []);
+  }, [
+    setAudioStreamStatus,
+    setVideoStreamStatus,
+    audioStreamStatus,
+    videoStreamStatus,
+  ]);
+
+  if (typeof window === "undefined") {
+    return null;
+  }
 
   return (
-    <div>
-      <video
-        ref={videoRef}
-        autoPlay
-        playsInline
-        className="w-[250px] md:min-w-full max-w-md border rounded-md"
-      />
+    <div className="flex flex-col gap-4">
+      <video ref={videoRef} autoPlay playsInline className="rounded-md" muted />
     </div>
   );
 }
